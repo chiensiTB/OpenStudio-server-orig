@@ -1,0 +1,12 @@
+/config.yml
+/*.pem
+/*.ppk
+ip_addresses
+aws.log
+worker_ips
+mongoid.yml
+slave_info.sh
+slave_script.sh
+server_data.json
+worker_data.json
+ip_addresses_vagrant.template

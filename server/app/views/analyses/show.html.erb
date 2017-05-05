@@ -1,0 +1,261 @@
+<%
+# *******************************************************************************
+# OpenStudio(R), Copyright (c) 2008-2016, Alliance for Sustainable Energy, LLC.
+# All rights reserved.
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are met:
+#
+# (1) Redistributions of source code must retain the above copyright notice,
+# this list of conditions and the following disclaimer.
+#
+# (2) Redistributions in binary form must reproduce the above copyright notice,
+# this list of conditions and the following disclaimer in the documentation
+# and/or other materials provided with the distribution.
+#
+# (3) Neither the name of the copyright holder nor the names of any contributors
+# may be used to endorse or promote products derived from this software without
+# specific prior written permission from the respective party.
+#
+# (4) Other than as required in clauses (1) and (2), distributions in any form
+# of modifications or other derivative works may not use the "OpenStudio"
+# trademark, "OS", "os", or any other confusingly similar designation without
+# specific prior written permission from Alliance for Sustainable Energy, LLC.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+# AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+# DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER, THE UNITED STATES
+# GOVERNMENT, OR ANY CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+# INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+# LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+# PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+# LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+# NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+# EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+# *******************************************************************************
+%>
+
+<!-- <script type="text/javascript" charset="utf-8">
+    <%#= render 'page_data.js' %>
+</script>
+-->
+
+
+<% if !@analysis %>
+    <p>No analysis found</p>
+<% else %>
+    <h2><%= @analysis.display_name %></h2>
+    <div class="row-fluid">
+      <div class="span4">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Analysis Information</h3>
+          </div>
+          <div class="panel-body">
+            <table class="table table-striped">
+              <tr>
+                <th>Project</th>
+                <td><%= link_to(@analysis.project.name, project_path(@analysis.project)) %></td>
+              </tr>
+              <tr>
+                <th>Type</th>
+                <td><%= @analysis.analysis_type %></td>
+              </tr>
+              <tr>
+                <th>Status</th>
+                <td><%= @analysis.status %>
+                  <% if @analysis.status == 'started' %>
+                    | <%= link_to("Stop Analysis", stop_analysis_path(@analysis)) %>
+                      <% end %>
+                </td>
+              </tr>
+              <tr>
+                <th>Status Message</th>
+                <td><%= @analysis.job_status_message %>
+              </tr>
+              <tr>
+                <th>Start Time</th>
+                <td><%= @analysis.start_time.strftime("%m-%d-%Y %H:%M:%S") + " UTC" unless @analysis.start_time.nil? %></td>
+              </tr>
+              <tr>
+                <th>End Time</th>
+                <td><%= @analysis.end_time.strftime("%m-%d-%Y %H:%M:%S") + " UTC" unless @analysis.end_time.nil? %></td>
+              </tr>
+              <tr>
+                <th>Duration</th>
+                <td><%= distance_of_time_in_words(@analysis.start_time, @analysis.end_time) unless @analysis.start_time.nil? || @analysis.end_time.nil? %></td>
+              </tr>
+              <tr>
+                <th>View</th>
+                <td><%= link_to 'JSON', analysis_path(@analysis, :format => :json) %>  |
+                  <%= link_to "Log", debug_log_analysis_path(@analysis) %></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="span4">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Data and Visualizations</h3>
+          </div>
+          <div class="panel-body">
+            <div class="list-group">
+              <%= link_to "Measures (#{@analysis.measures.count})", analysis_measures_path(@analysis), class: 'list-group-item' %>
+              <%= link_to "Variables (#{@analysis.variables.where(perturbable: true).count} Perturbable)", analysis_variables_path(@analysis), class: 'list-group-item' %>
+              <%= link_to "Analysis Data", analysis_data_analysis_path(@analysis), class: 'list-group-item' %>
+              <%= link_to 'Parallel Coordinates Plot', plot_parallelcoordinates_analysis_path(@analysis), class: 'list-group-item' %>
+              <%= link_to 'Scatter Plot', plot_scatter_analysis_path(@analysis), class: 'list-group-item' %>
+              <%= link_to 'Interactive XY Plot', plot_xy_interactive_analysis_path(@analysis), class: 'list-group-item' %>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="span4">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Downloads</h3>
+          </div>
+          <div class="panel-body">
+            <div class="list-group">
+              <%= link_to_if(!@analysis.seed_zip.nil?, "Seed Zip File", download_seed_zip_analysis_path(@analysis), class: 'list-group-item') %>
+              <%= link_to 'CSV (Metadata)', download_variables_analysis_variables_path(@analysis, format: :csv), class: 'list-group-item' %>
+              <%= link_to 'CSV (Results)', download_data_analysis_path(@analysis, format: :csv, export: true), class: 'list-group-item' %>
+              <%= link_to 'R Data Frame (Metadata)', download_variables_analysis_variables_path(@analysis, format: :rdata), class: 'list-group-item' %>
+              <%= link_to 'R Data Frame (Results)', download_data_analysis_path(@analysis, format: :rdata, export: true), class: 'list-group-item' %>
+              <%if @algorithm_results %>
+                <%= link_to "Algorithm Results Zip", download_algorithm_results_zip_analysis_path(@analysis), class: 'list-group-item' %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <h2 class="pad-top-30">Simulations
+      (<%= "#{@analysis.data_points.where(:status => 'completed').count} / #{@analysis.data_points.count}" if @analysis.data_points %>
+      ) </h2>
+
+    <ul class="nav nav-tabs">
+      <li
+      <% if @status == 'all' %>class="active"
+      <% end %>> <a data-toggle="tab" href="#sectionAll">All</a></li>
+      <li
+      <% if @status == 'completed' %>class="active"
+      <% end %>> <a data-toggle="tab" href="#sectionCompleted">Completed</a></li>
+      <li
+      <% if @status == 'started' %>class="active"
+      <% end %>> <a data-toggle="tab" href="#sectionStarted">Started</a></li>
+      <li
+      <% if @status == 'queued' %>class="active"
+      <% end %>> <a data-toggle="tab" href="#sectionQueued">Queued</a></li>
+      <li
+      <% if @status == 'na' %>class="active"
+      <% end %>> <a data-toggle="tab" href="#sectionNA">Initialized</a></li>
+    </ul>
+    <div class="tab-content">
+      <div id="sectionAll" class="tab-pane fade
+        <% if @status == 'all' %>in active
+        <% end %>">
+        <div class="tab-container">
+          <%= render(:partial => "analyses/table", :locals => {:simulations => @all_sims, :current => @all_page, :status => 'all', :all_page => @all_page, :completed_page => @completed_page, :started_page => @started_page, :queued_page => @queued_page, :na_page => @na_page}) %>
+        </div>
+      </div>
+      <div id="sectionCompleted" class="tab-pane fade
+        <% if @status == 'completed' %> in active
+        <% end %>">
+        <div class="tab-container">
+          <%= render(:partial => "analyses/table", :locals => {:simulations => @completed_sims, :current => @completed_page, :status => 'completed', :all_page => @all_page, :completed_page => @completed_page, :started_page => @started_page, :queued_page => @queued_page, :na_page => @na_page}) %>
+        </div>
+      </div>
+      <div id="sectionStarted" class="tab-pane fade
+        <% if @status == 'started' %>in active
+        <% end %>">
+        <div class="tab-container">
+          <%= render(:partial => "analyses/table", :locals => {:simulations => @started_sims, :current => @started_page, :status => 'started', :all_page => @all_page, :completed_page => @completed_page, :started_page => @started_page, :queued_page => @queued_page, :na_page => @na_page}) %>
+        </div>
+      </div>
+      <div id="sectionQueued" class="tab-pane fade
+        <% if @status == 'queued' %>in active
+        <% end %>">
+        <div class="tab-container">
+          <%= render(:partial => "analyses/table", :locals => {:simulations => @queued_sims, :current => @queued_page, :status => 'queued', :all_page => @all_page, :completed_page => @completed_page, :started_page => @started_page, :queued_page => @queued_page, :na_page => @na_page}) %>
+        </div>
+      </div>
+      <div id="sectionNA" class="tab-pane fade
+        <% if @status == 'na' %>in active
+        <% end %>">
+        <div class="tab-container">
+          <%= render(:partial => "analyses/table", :locals => {:simulations => @na_sims, :current => @na_page, :status => 'na', :all_page => @all_page, :completed_page => @completed_page, :started_page => @started_page, :queued_page => @queued_page, :na_page => @na_page}) %>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      $(document).ready(function () {
+          $("#datapointtable_all").tablesorter();
+          $("#datapointtable_completed").tablesorter();
+          $("#datapointtable_started").tablesorter();
+          $("#datapointtable_queued").tablesorter();
+          $("#datapointtable_na").tablesorter();
+      });
+
+    </script>
+
+     <script>
+      $(document).ready(function(){
+        var statuses = ['all', 'completed', 'started', 'queued', 'na'];
+        statuses.forEach(function(status){
+          var name = ".obj-function-col-" +status;
+
+          $(name).each(function(i){
+            var cur = $(this);
+            cur.hide();
+          });
+
+        });
+       
+      });
+      // this only works in all tabs if I define separate buttons and call them individually
+      $( "#toggle-button-all" ).click(function() {
+        $( ".obj-function-col-all" ).each(function(i){
+          var cur = $(this);
+          cur.toggle();
+        });
+      });
+
+      $( "#toggle-button-completed" ).click(function() {
+        $( ".obj-function-col-completed" ).each(function(i){
+          var cur = $(this);
+          cur.toggle();
+        });
+      });
+
+      $( "#toggle-button-started" ).click(function() {
+        $( ".obj-function-col-started" ).each(function(i){
+          var cur = $(this);
+          cur.toggle();
+        });
+      });
+
+      $( "#toggle-button-queued" ).click(function() {
+        $( ".obj-function-col-queued" ).each(function(i){
+          var cur = $(this);
+          cur.toggle();
+        });
+      });
+
+      $( "#toggle-button-na" ).click(function() {
+        $( ".obj-function-col-na" ).each(function(i){
+          var cur = $(this);
+          cur.toggle();
+        });
+      });
+
+  </script>
+
+
+<% end %>

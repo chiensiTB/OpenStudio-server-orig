@@ -1,0 +1,3 @@
+/Users/chienharriman/.rvm/rubies/ruby-2.2.4/bin/ruby mkrf_conf.rb
+
+/Users/chienharriman/.rvm/rubies/ruby-2.2.4/bin/ruby -rubygems /Users/chienharriman/OpenStudio-server/gems/gems/rake-11.3.0/exe/rake RUBYARCHDIR=/Users/chienharriman/OpenStudio-server/gems/extensions/x86_64-darwin-15/2.2.0-static/rainbow-2.2.2 RUBYLIBDIR=/Users/chienharriman/OpenStudio-server/gems/extensions/x86_64-darwin-15/2.2.0-static/rainbow-2.2.2

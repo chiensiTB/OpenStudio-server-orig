@@ -1,0 +1,31 @@
+/Users/chienharriman/.rvm/rubies/ruby-2.2.4/bin/ruby -r ./siteconf20170428-21287-uxu41.rb extconf.rb
+>>>>> Creating Makefile for ruby version 2.2.4 on x86_64-darwin15 <<<<<
+creating Makefile
+
+make "DESTDIR=" clean
+
+make "DESTDIR="
+compiling cache8.c
+compiling circarray.c
+compiling compat.c
+compiling dump.c
+compiling err.c
+compiling fast.c
+compiling hash.c
+compiling hash_test.c
+compiling object.c
+compiling odd.c
+compiling oj.c
+compiling parse.c
+compiling reader.c
+compiling resolve.c
+compiling saj.c
+compiling scp.c
+compiling sparse.c
+compiling strict.c
+compiling val_stack.c
+linking shared-object oj/oj.bundle
+ld: warning: directory not found for option '-L/Users/kuczynsk/.sm/pkg/active/lib'
+
+make "DESTDIR=" install
+/usr/bin/install -m 0755 oj.bundle ./.gem.20170428-21287-11uziv2/oj

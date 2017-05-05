@@ -1,0 +1,216 @@
+have_header: checking for ruby/st.h... -------------------- yes
+
+"gcc -o conftest -I/Users/chienharriman/.rvm/rubies/ruby-2.2.4/include/ruby-2.2.0/x86_64-darwin15 -I/Users/chienharriman/.rvm/rubies/ruby-2.2.4/include/ruby-2.2.0/ruby/backward -I/Users/chienharriman/.rvm/rubies/ruby-2.2.4/include/ruby-2.2.0 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -O3 -I/Users/kuczynsk/.sm/pkg/active/include -fPIC -mmacosx-version-min=10.7 -pipe conftest.c  -L. -L/Users/chienharriman/.rvm/rubies/ruby-2.2.4/lib -L. -L/Users/kuczynsk/.sm/pkg/active/lib -fPIC -Bstatic -lz -fstack-protector -L/usr/local/lib   -arch x86_64   -lruby-static -framework CoreFoundation  -lpthread -lgmp -ldl -lobjc "
+ld: warning: directory not found for option '-L/Users/kuczynsk/.sm/pkg/active/lib'
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main(int argc, char **argv)
+4: {
+5:   return 0;
+6: }
+/* end */
+
+"gcc -E -I/Users/chienharriman/.rvm/rubies/ruby-2.2.4/include/ruby-2.2.0/x86_64-darwin15 -I/Users/chienharriman/.rvm/rubies/ruby-2.2.4/include/ruby-2.2.0/ruby/backward -I/Users/chienharriman/.rvm/rubies/ruby-2.2.4/include/ruby-2.2.0 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -O3 -I/Users/kuczynsk/.sm/pkg/active/include -fPIC -mmacosx-version-min=10.7 -pipe  conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <ruby/st.h>
+/* end */
+
+--------------------
+
+have_header: checking for st.h... -------------------- yes
+
+"gcc -E -I/Users/chienharriman/.rvm/rubies/ruby-2.2.4/include/ruby-2.2.0/x86_64-darwin15 -I/Users/chienharriman/.rvm/rubies/ruby-2.2.4/include/ruby-2.2.0/ruby/backward -I/Users/chienharriman/.rvm/rubies/ruby-2.2.4/include/ruby-2.2.0 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -O3 -I/Users/kuczynsk/.sm/pkg/active/include -fPIC -mmacosx-version-min=10.7 -pipe  conftest.c -o conftest.i"
+In file included from conftest.c:3:
+/Users/chienharriman/.rvm/rubies/ruby-2.2.4/include/ruby-2.2.0/ruby/backward/st.h:2:2: warning: use "ruby/st.h" instead of bare "st.h" [-W#warnings]
+#warning use "ruby/st.h" instead of bare "st.h"
+ ^
+1 warning generated.
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <st.h>
+/* end */
+
+--------------------
+
+have_func: checking for rb_str_replace() in ruby.h... -------------------- yes
+
+"gcc -o conftest -I/Users/chienharriman/.rvm/rubies/ruby-2.2.4/include/ruby-2.2.0/x86_64-darwin15 -I/Users/chienharriman/.rvm/rubies/ruby-2.2.4/include/ruby-2.2.0/ruby/backward -I/Users/chienharriman/.rvm/rubies/ruby-2.2.4/include/ruby-2.2.0 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -O3 -I/Users/kuczynsk/.sm/pkg/active/include -fPIC -mmacosx-version-min=10.7 -pipe conftest.c  -L. -L/Users/chienharriman/.rvm/rubies/ruby-2.2.4/lib -L. -L/Users/kuczynsk/.sm/pkg/active/lib -fPIC -Bstatic -lz -fstack-protector -L/usr/local/lib   -arch x86_64   -lruby-static -framework CoreFoundation  -lpthread -lgmp -ldl -lobjc "
+ld: warning: directory not found for option '-L/Users/kuczynsk/.sm/pkg/active/lib'
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: #include <ruby.h>
+ 4: 
+ 5: /*top*/
+ 6: extern int t(void);
+ 7: int main(int argc, char **argv)
+ 8: {
+ 9:   if (argc > 1000000) {
+10:     printf("%p", &t);
+11:   }
+12: 
+13:   return 0;
+14: }
+15: int t(void) { void ((*volatile p)()); p = (void ((*)()))rb_str_replace; return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for rb_intern_str() in ruby.h... -------------------- yes
+
+"gcc -o conftest -I/Users/chienharriman/.rvm/rubies/ruby-2.2.4/include/ruby-2.2.0/x86_64-darwin15 -I/Users/chienharriman/.rvm/rubies/ruby-2.2.4/include/ruby-2.2.0/ruby/backward -I/Users/chienharriman/.rvm/rubies/ruby-2.2.4/include/ruby-2.2.0 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -O3 -I/Users/kuczynsk/.sm/pkg/active/include -fPIC -mmacosx-version-min=10.7 -pipe conftest.c  -L. -L/Users/chienharriman/.rvm/rubies/ruby-2.2.4/lib -L. -L/Users/kuczynsk/.sm/pkg/active/lib -fPIC -Bstatic -lz -fstack-protector -L/usr/local/lib   -arch x86_64   -lruby-static -framework CoreFoundation  -lpthread -lgmp -ldl -lobjc "
+ld: warning: directory not found for option '-L/Users/kuczynsk/.sm/pkg/active/lib'
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: #include <ruby.h>
+ 4: 
+ 5: /*top*/
+ 6: extern int t(void);
+ 7: int main(int argc, char **argv)
+ 8: {
+ 9:   if (argc > 1000000) {
+10:     printf("%p", &t);
+11:   }
+12: 
+13:   return 0;
+14: }
+15: int t(void) { void ((*volatile p)()); p = (void ((*)()))rb_intern_str; return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for rb_sym2str() in ruby.h... -------------------- yes
+
+"gcc -o conftest -I/Users/chienharriman/.rvm/rubies/ruby-2.2.4/include/ruby-2.2.0/x86_64-darwin15 -I/Users/chienharriman/.rvm/rubies/ruby-2.2.4/include/ruby-2.2.0/ruby/backward -I/Users/chienharriman/.rvm/rubies/ruby-2.2.4/include/ruby-2.2.0 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -O3 -I/Users/kuczynsk/.sm/pkg/active/include -fPIC -mmacosx-version-min=10.7 -pipe conftest.c  -L. -L/Users/chienharriman/.rvm/rubies/ruby-2.2.4/lib -L. -L/Users/kuczynsk/.sm/pkg/active/lib -fPIC -Bstatic -lz -fstack-protector -L/usr/local/lib   -arch x86_64   -lruby-static -framework CoreFoundation  -lpthread -lgmp -ldl -lobjc "
+ld: warning: directory not found for option '-L/Users/kuczynsk/.sm/pkg/active/lib'
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: #include <ruby.h>
+ 4: 
+ 5: /*top*/
+ 6: extern int t(void);
+ 7: int main(int argc, char **argv)
+ 8: {
+ 9:   if (argc > 1000000) {
+10:     printf("%p", &t);
+11:   }
+12: 
+13:   return 0;
+14: }
+15: int t(void) { void ((*volatile p)()); p = (void ((*)()))rb_sym2str; return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for rb_str_intern() in ruby.h... -------------------- yes
+
+"gcc -o conftest -I/Users/chienharriman/.rvm/rubies/ruby-2.2.4/include/ruby-2.2.0/x86_64-darwin15 -I/Users/chienharriman/.rvm/rubies/ruby-2.2.4/include/ruby-2.2.0/ruby/backward -I/Users/chienharriman/.rvm/rubies/ruby-2.2.4/include/ruby-2.2.0 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -O3 -I/Users/kuczynsk/.sm/pkg/active/include -fPIC -mmacosx-version-min=10.7 -pipe conftest.c  -L. -L/Users/chienharriman/.rvm/rubies/ruby-2.2.4/lib -L. -L/Users/kuczynsk/.sm/pkg/active/lib -fPIC -Bstatic -lz -fstack-protector -L/usr/local/lib   -arch x86_64   -lruby-static -framework CoreFoundation  -lpthread -lgmp -ldl -lobjc "
+ld: warning: directory not found for option '-L/Users/kuczynsk/.sm/pkg/active/lib'
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: #include <ruby.h>
+ 4: 
+ 5: /*top*/
+ 6: extern int t(void);
+ 7: int main(int argc, char **argv)
+ 8: {
+ 9:   if (argc > 1000000) {
+10:     printf("%p", &t);
+11:   }
+12: 
+13:   return 0;
+14: }
+15: int t(void) { void ((*volatile p)()); p = (void ((*)()))rb_str_intern; return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for rb_block_lambda() in ruby.h... -------------------- yes
+
+"gcc -o conftest -I/Users/chienharriman/.rvm/rubies/ruby-2.2.4/include/ruby-2.2.0/x86_64-darwin15 -I/Users/chienharriman/.rvm/rubies/ruby-2.2.4/include/ruby-2.2.0/ruby/backward -I/Users/chienharriman/.rvm/rubies/ruby-2.2.4/include/ruby-2.2.0 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -O3 -I/Users/kuczynsk/.sm/pkg/active/include -fPIC -mmacosx-version-min=10.7 -pipe conftest.c  -L. -L/Users/chienharriman/.rvm/rubies/ruby-2.2.4/lib -L. -L/Users/kuczynsk/.sm/pkg/active/lib -fPIC -Bstatic -lz -fstack-protector -L/usr/local/lib   -arch x86_64   -lruby-static -framework CoreFoundation  -lpthread -lgmp -ldl -lobjc "
+ld: warning: directory not found for option '-L/Users/kuczynsk/.sm/pkg/active/lib'
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: #include <ruby.h>
+ 4: 
+ 5: /*top*/
+ 6: extern int t(void);
+ 7: int main(int argc, char **argv)
+ 8: {
+ 9:   if (argc > 1000000) {
+10:     printf("%p", &t);
+11:   }
+12: 
+13:   return 0;
+14: }
+15: int t(void) { void ((*volatile p)()); p = (void ((*)()))rb_block_lambda; return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for rb_hash_dup() in ruby.h... -------------------- yes
+
+"gcc -o conftest -I/Users/chienharriman/.rvm/rubies/ruby-2.2.4/include/ruby-2.2.0/x86_64-darwin15 -I/Users/chienharriman/.rvm/rubies/ruby-2.2.4/include/ruby-2.2.0/ruby/backward -I/Users/chienharriman/.rvm/rubies/ruby-2.2.4/include/ruby-2.2.0 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -O3 -I/Users/kuczynsk/.sm/pkg/active/include -fPIC -mmacosx-version-min=10.7 -pipe conftest.c  -L. -L/Users/chienharriman/.rvm/rubies/ruby-2.2.4/lib -L. -L/Users/kuczynsk/.sm/pkg/active/lib -fPIC -Bstatic -lz -fstack-protector -L/usr/local/lib   -arch x86_64   -lruby-static -framework CoreFoundation  -lpthread -lgmp -ldl -lobjc "
+ld: warning: directory not found for option '-L/Users/kuczynsk/.sm/pkg/active/lib'
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: #include <ruby.h>
+ 4: 
+ 5: /*top*/
+ 6: extern int t(void);
+ 7: int main(int argc, char **argv)
+ 8: {
+ 9:   if (argc > 1000000) {
+10:     printf("%p", &t);
+11:   }
+12: 
+13:   return 0;
+14: }
+15: int t(void) { void ((*volatile p)()); p = (void ((*)()))rb_hash_dup; return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for rb_hash_clear() in ruby.h... -------------------- yes
+
+"gcc -o conftest -I/Users/chienharriman/.rvm/rubies/ruby-2.2.4/include/ruby-2.2.0/x86_64-darwin15 -I/Users/chienharriman/.rvm/rubies/ruby-2.2.4/include/ruby-2.2.0/ruby/backward -I/Users/chienharriman/.rvm/rubies/ruby-2.2.4/include/ruby-2.2.0 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -O3 -I/Users/kuczynsk/.sm/pkg/active/include -fPIC -mmacosx-version-min=10.7 -pipe conftest.c  -L. -L/Users/chienharriman/.rvm/rubies/ruby-2.2.4/lib -L. -L/Users/kuczynsk/.sm/pkg/active/lib -fPIC -Bstatic -lz -fstack-protector -L/usr/local/lib   -arch x86_64   -lruby-static -framework CoreFoundation  -lpthread -lgmp -ldl -lobjc "
+ld: warning: directory not found for option '-L/Users/kuczynsk/.sm/pkg/active/lib'
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: #include <ruby.h>
+ 4: 
+ 5: /*top*/
+ 6: extern int t(void);
+ 7: int main(int argc, char **argv)
+ 8: {
+ 9:   if (argc > 1000000) {
+10:     printf("%p", &t);
+11:   }
+12: 
+13:   return 0;
+14: }
+15: int t(void) { void ((*volatile p)()); p = (void ((*)()))rb_hash_clear; return 0; }
+/* end */
+
+--------------------
+
